@@ -25,20 +25,13 @@ class HomeController extends GetxController {
   ProfileParam? profileParam;
   List<ListItemCategoryEntity> listItemCategoryEntity = [];
   List<ListItemMediaEntity> listItemMediaEntity = [
-    ListItemMediaEntity(id: '68110000-e519-00ff-358e-08dd1ab19211'),
-    ListItemMediaEntity(id: '68110000-e519-00ff-b685-08dd1ab138bd'),
+    ListItemMediaEntity(id: '68110000-e519-00ff-8015-08dd1ac4d983'),
+    ListItemMediaEntity(id: '68110000-e519-00ff-9578-08dd1ac541b6'),
+    ListItemMediaEntity(id: '68110000-e519-00ff-8825-08dd1af388fa'),
+    ListItemMediaEntity(id: '68110000-e519-00ff-d176-08dd1af268bf'),
+    ListItemMediaEntity(id: '68110000-e519-00ff-977b-08dd1afacb8e'),
     ListItemMediaEntity(id: '68110000-e519-00ff-e48e-08dd1ab10926'),
-    ListItemMediaEntity(id: '68110000-e519-00ff-f38d-08dd1ab0e47e'),
-    ListItemMediaEntity(id: '68110000-e519-00ff-b993-08dd1ab05705'),
-    ListItemMediaEntity(id: '68110000-e519-00ff-b685-08dd1ab138bd'),
   ];
-  // I/flutter (19717): 68110000-e519-00ff-358e-08dd1ab19211
-  // I/flutter (19717): 68110000-e519-00ff-b685-08dd1ab138bd
-  // I/flutter (19717): 68110000-e519-00ff-e48e-08dd1ab10926
-  // I/flutter (19717): 68110000-e519-00ff-f38d-08dd1ab0e47e
-  // I/flutter (19717): 68110000-e519-00ff-b993-08dd1ab05705
-
-
 
   ///Status
   BaseStatus baseStatusProfile = const BaseInit();
@@ -202,7 +195,6 @@ class HomeController extends GetxController {
         value.fold(
           (data) {
             baseStatusProfile = BaseComplete<dynamic>(data);
-            repGetProfile();
             update();
           },
           (error) {

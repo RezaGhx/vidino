@@ -2,17 +2,22 @@ import 'package:competition/core/extensions/device_response.dart';
 import 'package:competition/core/extensions/space.dart';
 import 'package:competition/core/extensions/validator.dart';
 import 'package:competition/core/widgets/back_ground/my_background.dart';
+import 'package:competition/core/widgets/buttons/my_icon_back.dart';
 import 'package:competition/feature_filter/presentation/controller/filter_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
+import '../../../config/resoureces/my_api.dart';
 import '../../../config/resoureces/my_color.dart';
 import '../../../config/resoureces/my_text_styles.dart';
+import '../../../config/routes/routes.dart';
+import '../../../core/utils/base_status.dart';
 import '../../../core/widgets/app_bar/my_app_bar.dart';
 import '../../../core/widgets/buttons/my_icon_button.dart';
 import '../../../core/widgets/containers/my_container_public.dart';
 import '../../../core/widgets/imaes/my_poster_films.dart';
+import '../../../core/widgets/loading/my_loading.dart';
 import '../../../core/widgets/text/my_text_field.dart';
 
 class FilterScreen extends GetView<FilterController> {
@@ -23,6 +28,7 @@ class FilterScreen extends GetView<FilterController> {
     return GetBuilder<FilterController>(builder: (_) {
       return Scaffold(
         appBar: MyAppBar(
+          leading: const MyIconBack(),
           actions: [
             Padding(
               padding: const EdgeInsets.only(left: 20),
@@ -34,9 +40,11 @@ class FilterScreen extends GetView<FilterController> {
             ),
             Padding(
                 padding: const EdgeInsets.only(left: 20),
-                child: MyContainerPublic(
+                child:  controller.baseStatusProfile is BaseLoading
+                    ? const MyLoading()
+                    :MyContainerPublic(
                   onTap: () {
-                    controller.profileModalBottomSheet();
+                    controller.repGetProfile();
                   },
                   backgroundColor: MyColor.transparent,
                   child: Image.asset(
@@ -134,14 +142,21 @@ class FilterScreen extends GetView<FilterController> {
                 20.responseHeight.heightSpace,
                 ///Grid List view
                 GridView.builder(
-                  itemCount: 12,
+                  itemCount: controller.listItemMediaEntity.length,
                   shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2),
                   itemBuilder: (BuildContext context, int index) {
                     return  MyPosterFilms(
-                      imageAssets: 'assets/images/poster2.jpg',
-                      nameFilms: "پوستر فیلم",
+                      onTap: (){
+                        Get.toNamed(Routes.detailPage,
+                            arguments: {
+                              "mediaById": controller.listItemMediaEntity[index]
+                            });
+                      },
+                      url: "${MyApi.baseUrl}/v1/file/store/${controller.listItemMediaEntity[index].imageId}",
+                      nameFilms: controller.listItemMediaEntity[index].title??"",
                       textDirection: TextDirection.rtl,
                       style:MyTextStyle.style(
                           context: context,

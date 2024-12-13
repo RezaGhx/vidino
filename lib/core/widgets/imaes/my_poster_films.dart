@@ -2,6 +2,7 @@ import 'package:competition/config/resoureces/my_color.dart';
 import 'package:competition/config/resoureces/my_text_styles.dart';
 import 'package:competition/core/extensions/device_response.dart';
 import 'package:competition/core/extensions/space.dart';
+import 'package:competition/core/widgets/circle_progress/my_circle_progress.dart';
 import 'package:competition/core/widgets/containers/my_container_public.dart';
 import 'package:competition/core/widgets/imaes/cache_image.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class MyPosterFilms extends StatelessWidget {
   final TextDirection? textDirection;
   final TextStyle? style;
   final Function()? onTap;
+  final int? value;
   const MyPosterFilms(
       {super.key,
       this.url,
@@ -22,6 +24,7 @@ class MyPosterFilms extends StatelessWidget {
       this.background,
       this.textDirection,
       this.style,
+        this.value,
         this.onTap});
 
   @override
@@ -30,14 +33,29 @@ class MyPosterFilms extends StatelessWidget {
       onTap: onTap,
       margin: EdgeInsets.symmetric(horizontal: 3.responseWidth),
       backgroundColor: background ?? MyColor.transparent,
-      width: 140,
+      width: value==null?160:290,
+      height: value==null?null:250,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CacheImage(
-            url: url,
-            height: 80,
-            imageAssets: imageAssets,
+          value==null?CacheImage(
+      url: url,
+        height: 90,
+        imageAssets: imageAssets,
+      ): Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Expanded(
+                child: CacheImage(
+                  url: url,
+                  height: 130,
+                  imageAssets: imageAssets,
+                ),
+              ),
+              15.responseWidth.widthSpace,
+              MyCustomCircularProgressBar(value: value!/1.0,)
+            ],
           ),
           10.responseHeight.heightSpace,
           FittedBox(

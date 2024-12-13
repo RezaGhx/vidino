@@ -1,8 +1,6 @@
 import 'package:competition/config/routes/routes.dart';
 import 'package:competition/feature_category/presentation/binding/category_binding.dart';
 import 'package:competition/feature_category/presentation/screen/category_screen.dart';
-import 'package:competition/feature_chat/presentation/binding/chat_binding.dart';
-import 'package:competition/feature_chat/presentation/screen/chat_screen.dart';
 import 'package:competition/feature_detail/presentation/binding/detail_binding.dart';
 import 'package:competition/feature_detail/presentation/screen/detail_screen.dart';
 import 'package:competition/feature_filter/presentation/binding/filter_binding.dart';
@@ -45,11 +43,6 @@ class MyAppRouter {
         name: Routes.homePage,
         page: () => const HomeScreen(),
         binding: HomeBinding(),
-      ),
-      GetPage(
-        name: Routes.chatPage,
-        page: () => const ChatScreen(),
-        binding: ChatBinding(),
       ),
       GetPage(
         name: Routes.categoryPage,

@@ -51,8 +51,8 @@ class MyAppBar extends PreferredSize {
             )
           : Image.asset(
         'assets/images/logo.png',
-        color: MyColor.primary,
-        width: 80,
+        height: 40,
+        width: 60,
       ),
       elevation: 0.0,
       scrolledUnderElevation: 0.0,

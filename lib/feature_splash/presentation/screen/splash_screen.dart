@@ -4,6 +4,8 @@ import 'package:competition/core/widgets/buttons/my_button/my_button.dart';
 import 'package:competition/core/widgets/loading/my_loading.dart';
 import 'package:competition/feature_splash/presentation/controller/splash_controller.dart';
 
+import '../../../config/resoureces/my_color.dart';
+
 class SplashScreen extends GetView<SplashController> {
   const SplashScreen({super.key});
 
@@ -14,7 +16,7 @@ class SplashScreen extends GetView<SplashController> {
         child: Stack(
           children: [
             Center(
-              child: Image.asset("assets/images/logo.png",),
+              child: Image.asset("assets/images/logo.png",  ),
             ),
             GetBuilder<SplashController>(
               builder: (context) {

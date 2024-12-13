@@ -15,7 +15,7 @@ class MyIconBack extends StatelessWidget {
         onTap == null ? Get.back() : onTap!();
       },
       icon: Icon(
-        Icons.arrow_forward_rounded,
+        Icons.arrow_back,
         size: 32,
         color: iconColor,
       ),

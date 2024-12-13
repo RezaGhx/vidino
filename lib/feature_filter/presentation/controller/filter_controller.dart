@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../../../core/params/get_pages_param.dart';
 import '../../../core/params/profile_param.dart';
 import '../../../core/usecase/usecase_param.dart';
 import '../../../core/utils/base_status.dart';
@@ -7,8 +8,10 @@ import '../../../core/widgets/modals/filter/my_modal_bottom_sheet_filter.dart';
 import '../../../core/widgets/modals/my_show_modal_bottom_sheets.dart';
 import '../../../core/widgets/modals/profile/my_modal_bottom_sheet_profile.dart';
 import '../../../core/widgets/snackbar/my_snack_bar.dart';
+import '../../../feature_home/domain/entity/list_item_media_entity.dart';
 import '../../../feature_home/domain/entity/profile_entity.dart';
 import '../../../feature_home/domain/usecase/get_profile_usecase.dart';
+import '../../../feature_home/domain/usecase/list_item_media_usecase.dart';
 import '../../../feature_home/domain/usecase/profile_update_usecase.dart';
 import 'package:flutter/material.dart';
 
@@ -18,23 +21,24 @@ class FilterController extends GetxController{
 
   ProfileEntity? profileEntity;
   ProfileParam? profileParam;
-
+  List<ListItemMediaEntity> listItemMediaEntity =[];
   ///Status
   BaseStatus baseStatusProfile = const BaseInit();
+  BaseStatus baseStatusListItemMedia = const BaseInit();
 
   ///UseCase
   GetProfileUseCase getProfileUseCase;
   ProfileUpdateUseCase profileUpdateUseCase;
+  ListItemMediaUseCase listItemMediaUseCase;
 
-
-  FilterController(this.getProfileUseCase, this.profileUpdateUseCase);
+  FilterController(this.getProfileUseCase,this.listItemMediaUseCase, this.profileUpdateUseCase);
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     profileEntity=ProfileEntity();
-    repGetProfile();
+    repGetListItemMedia();
   }
 
   void repGetProfile() async {
@@ -76,7 +80,6 @@ class FilterController extends GetxController{
         value.fold(
               (data) {
             baseStatusProfile = BaseComplete<dynamic>(data);
-            repGetProfile();
             update();
 
           },
@@ -92,11 +95,36 @@ class FilterController extends GetxController{
     );
   }
 
+  void repGetListItemMedia() async {
+    baseStatusListItemMedia = const BaseLoading();
+    update();
+    await listItemMediaUseCase(
+        GetPagesParam(page: "1", pageSize: "100",category: "" ))
+        .then(
+          (value) {
+        value.fold(
+              (data) {
+            baseStatusListItemMedia = BaseComplete<dynamic>(data);
+            listItemMediaEntity = data;
+            update();
+          },
+              (error) {
+            baseStatusListItemMedia = BaseError(error.message);
+            update();
+
+            mySnackBar(
+                title: error.title, content: error.message, isSuccess: false);
+          },
+        );
+      },
+    );
+  }
 
   setUserEntity({UserEntity? userEntity}){
     profileEntity = profileEntity!.copyWith(
         user: userEntity
     );
+    profileModalBottomSheet();
   }
 
   void profileModalBottomSheet() {

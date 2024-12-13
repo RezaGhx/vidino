@@ -38,10 +38,10 @@ class ProfileParam {
   );
 
   Map<String, dynamic> get toJson => {
-    "userId": userId,
+    // "userId": userId,
     "phoneNumber": phoneNumber,
     "fullname": fullname,
     "gender": gender,
-    "birthDate": "${birthDate.toIso8601String()}Z",
+    "birthDate": birthDate.toIso8601String(),
   };
 }

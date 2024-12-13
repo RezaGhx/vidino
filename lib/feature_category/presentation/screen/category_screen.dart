@@ -10,46 +10,37 @@ import '../../../config/resoureces/my_text_styles.dart';
 import '../../../config/routes/routes.dart';
 import '../../../core/widgets/app_bar/my_app_bar.dart';
 import '../../../core/widgets/back_ground/my_background.dart';
+import '../../../core/widgets/buttons/my_icon_back.dart';
 import '../../../core/widgets/buttons/my_icon_button.dart';
 import '../../../core/widgets/containers/my_container_public.dart';
 import '../../../core/widgets/imaes/cache_image.dart';
 import '../../../core/widgets/imaes/my_poster_films.dart';
-import '../../../core/widgets/list/my_list_view_horizontal.dart';
 import '../controller/category_controller.dart';
 
 class CategoryScreen extends GetView<CategoryController> {
   const CategoryScreen({super.key});
-
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CategoryController>(builder: (_) {
       return Scaffold(
         appBar: MyAppBar(
+          leading: const MyIconBack(),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: MyIconButton(
-                onTap: () {
-
-                },
-                icon: Icons.search,
-                iconSize: 30,
-              ),
-            ),
-            Padding(
                 padding: const EdgeInsets.only(left: 20),
-                child: MyContainerPublic(
-                  onTap: (){
-                    controller.profileModalBottomSheet();
-                  },
-                  backgroundColor: MyColor.transparent,
-                  child: Image.asset(
-                    "assets/images/profile.png",
-                    scale: 6,
-                  ),
-                )),
-
+                child: controller.baseStatusProfile is BaseLoading
+                    ? const MyLoading()
+                    : MyContainerPublic(
+                        onTap: () {
+                          controller.repGetProfile();
+                        },
+                        backgroundColor: MyColor.transparent,
+                        child: Image.asset(
+                          "assets/images/profile.png",
+                          scale: 6,
+                        ),
+                      )),
           ],
         ),
         body: SingleChildScrollView(
@@ -68,7 +59,7 @@ class CategoryScreen extends GetView<CategoryController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          controller.listItemCategoryEntity!.title??"",
+                          controller.listItemCategoryEntity!.title ?? "",
                           style: MyTextStyle.style(
                               context: context,
                               size: MyFontSize.medium,
@@ -76,7 +67,7 @@ class CategoryScreen extends GetView<CategoryController> {
                         ),
                         10.responseHeight.heightSpace,
                         Text(
-                          controller.listItemCategoryEntity!.description??"",
+                          controller.listItemCategoryEntity!.description ?? "",
                           style: MyTextStyle.style(
                               context: context,
                               mode: MyColor.neaDarkGrey,
@@ -86,27 +77,60 @@ class CategoryScreen extends GetView<CategoryController> {
                       ],
                     ),
                     15.responseHeight.heightSpace,
-                    controller.baseStatusListItemMedia is BaseLoading?const MyLoading(): CacheImage(
-                      height: 160,
-                      url: "${MyApi.baseUrl}/v1/file/store/${controller.listItemMediaEntity[3].imageId!}",
-                    ),
+                    controller.baseStatusListItemMedia is BaseLoading
+                        ? const MyLoading()
+                        : MyContainerPublic(
+                            backgroundColor: MyColor.transparent,
+                            onTap: () {
+                              Get.toNamed(Routes.detailPage, arguments: {
+                                "mediaById": controller.listItemMediaEntity[3]
+                              });
+                            },
+                            child: CacheImage(
+                              height: 160,
+                              url:
+                                  "${MyApi.baseUrl}/v1/file/store/${controller.listItemMediaEntity[3].imageId!}",
+                            ),
+                          ),
                     15.responseHeight.heightSpace,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        controller.baseStatusListItemMedia is BaseLoading?const MyLoading():Expanded(
-                          child: CacheImage(
-                            height: 90,
-                            url: "${MyApi.baseUrl}/v1/file/store/${controller.listItemMediaEntity[4].imageId!}",
-                          ),
-                        ),
+                        controller.baseStatusListItemMedia is BaseLoading
+                            ? const MyLoading()
+                            : MyContainerPublic(
+                                backgroundColor: MyColor.transparent,
+                                onTap: () {
+                                  Get.toNamed(Routes.detailPage, arguments: {
+                                    "mediaById":
+                                        controller.listItemMediaEntity[3]
+                                  });
+                                },
+                                child: CacheImage(
+                                  height: 90,
+                                  width: context.width/2.3,
+                                  url:
+                                      "${MyApi.baseUrl}/v1/file/store/${controller.listItemMediaEntity[3].imageId!}",
+                                ),
+                              ),
                         15.responseWidth.widthSpace,
-                        controller.baseStatusListItemMedia is BaseLoading?const MyLoading():Expanded(
-                          child: CacheImage(
-                            height: 90,
-                            url: "${MyApi.baseUrl}/v1/file/store/${controller.listItemMediaEntity[2].imageId!}",
-                          ),
-                        ),
+                        controller.baseStatusListItemMedia is BaseLoading
+                            ? const MyLoading()
+                            : MyContainerPublic(
+                                backgroundColor: MyColor.transparent,
+                                onTap: () {
+                                  Get.toNamed(Routes.detailPage, arguments: {
+                                    "mediaById":
+                                        controller.listItemMediaEntity[2]
+                                  });
+                                },
+                                child: CacheImage(
+                                  height: 90,
+                                  width: context.width/2.3,
+                                  url:
+                                      "${MyApi.baseUrl}/v1/file/store/${controller.listItemMediaEntity[2].imageId!}",
+                                ),
+                              ),
                       ],
                     )
                   ],
@@ -124,16 +148,20 @@ class CategoryScreen extends GetView<CategoryController> {
                   backgroundColor: MyColor.transparent,
                   height: 130,
                   child: ListView.builder(
-
                     itemBuilder: (BuildContext context, int index) {
                       return Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 3.responseWidth),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 3.responseWidth),
                         child: MyPosterFilms(
-                          onTap: (){
+                          onTap: () {
+                            Get.toNamed(Routes.detailPage, arguments: {
+                              "mediaById": controller.listItemMediaEntity[index]
+                            });
                           },
-                          url: "${MyApi.baseUrl}/v1/file/store/${controller.listItemMediaEntity[index].imageId!}",
-                          nameFilms: controller.listItemMediaEntity[index].title,
+                          url:
+                              "${MyApi.baseUrl}/v1/file/store/${controller.listItemMediaEntity[index].imageId!}",
+                          nameFilms:
+                              controller.listItemMediaEntity[index].title,
                         ),
                       );
                     },
@@ -142,7 +170,6 @@ class CategoryScreen extends GetView<CategoryController> {
                     scrollDirection: Axis.horizontal,
                   ),
                 ),
-
               ],
             ),
           ),

@@ -39,7 +39,6 @@ class CategoryController extends GetxController{
     super.onInit();
     profileEntity=ProfileEntity();
     listItemCategoryEntity=Get.arguments["listItemCategoryEntity"]??ListItemCategoryEntity();
-    repGetProfile();
     repGetListItemMedia();
   }
 
@@ -82,7 +81,6 @@ class CategoryController extends GetxController{
         value.fold(
               (data) {
             baseStatusProfile = BaseComplete<dynamic>(data);
-            repGetProfile();
             update();
 
           },
@@ -129,6 +127,8 @@ class CategoryController extends GetxController{
     profileEntity = profileEntity!.copyWith(
         user: userEntity
     );
+    update();
+    profileModalBottomSheet();
   }
 
   void profileModalBottomSheet() {

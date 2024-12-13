@@ -5,14 +5,14 @@ import '../entity/comments_entity.dart';
 import '../repository/detail_repository.dart';
 
 
-class CommentsUseCase
-    implements UseCaseParam<DataState<List<CommentsEntity>, MyException>, String> {
+class LikeUseCase
+    implements UseCaseParam<DataState<NoParam, MyException>, String> {
   final IDetailRepository _repository;
 
-  const CommentsUseCase(this._repository);
+  const LikeUseCase(this._repository);
 
   @override
-  Future<DataState<List<CommentsEntity>, MyException>> call(String param) async {
-    return _repository.comments(param: param);
+  Future<DataState<NoParam, MyException>> call(String param) async {
+    return _repository.like(param: param);
   }
 }

@@ -29,12 +29,6 @@ class HomeScreen extends GetView<HomeController> {
     return GetBuilder<HomeController>(builder: (_) {
       return Scaffold(
         appBar: MyAppBar(
-          leading: MyIconButton(
-            icon: Icons.filter_list,
-            onTap: () {
-              Get.toNamed(Routes.filterPage);
-            },
-          ),
           actions: [
             Padding(
                 padding: const EdgeInsets.only(left: 20),
@@ -71,7 +65,7 @@ class HomeScreen extends GetView<HomeController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 280,
+                  height: 220,
                   child: PageView.builder(
                     itemCount: 3,
                     itemBuilder: (context, index) {
@@ -106,44 +100,62 @@ class HomeScreen extends GetView<HomeController> {
                           ),
                           10.responseHeight.heightSpace,
                           Padding(
-                            padding: const EdgeInsets.only(right: 15),
+                            padding: const EdgeInsets.only(right: 15,left: 10),
                             child: Align(
                               alignment: Alignment.bottomRight,
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SizedBox(
-                                    width: 100,
-                                    child: MyButton(
-                                      title: 'تماشا کنید',
-                                      onTap: () {
-                                        Get.toNamed(Routes.videoPlayerPage,
-                                            parameters: {
-                                              "urlVideo": '${MyApi.baseUrlPlayer}${controller.listItemMediaEntity[index].mediaUrl}'
-                                            });
-                                      },
-                                      size: MyButtonSize.small,
-                                    ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 100,
+                                        child: MyButton(
+                                          title: 'تماشا کنید',
+                                          icon: Icons.play_arrow,
+                                          onTap: () {
+                                            Get.toNamed(Routes.videoPlayerPage,
+                                                arguments: {
+                                                  "urlVideo": '${MyApi.baseUrlPlayer}${controller.listItemMediaEntity[index].mediaUrl}'
+                                                });
+                                          },
+                                          size: MyButtonSize.small,
+                                        ),
+                                      ),
+                                      10.responseWidth.widthSpace,
+                                      SizedBox(
+                                        width: 100,
+                                        child: MyButton(
+                                          title: 'اطلاعات بیشتر',
+                                          onTap: () {
+                                            Get.toNamed(Routes.detailPage,
+                                                arguments: {
+                                                  "mediaById": controller
+                                                      .listItemMediaEntity[index]
+                                                });
+                                          },
+                                          type: MyButtonType.btnDefaultNonLine,
+                                          size: MyButtonSize.small,
+                                        ),
+                                      ),
+                                      10.responseHeight.heightSpace,
+
+
+
+                                    ],
                                   ),
-                                  10.responseWidth.widthSpace,
-                                  SizedBox(
-                                    width: 100,
-                                    child: MyButton(
-                                      title: 'اطلاعات بیشتر',
-                                      onTap: () {
-                                        Get.toNamed(Routes.detailPage,
-                                            arguments: {
-                                              "mediaById": controller
-                                                  .listItemMediaEntity[index]
-                                            });
-                                      },
-                                      type: MyButtonType.btnDefaultNonLine,
-                                      size: MyButtonSize.small,
-                                    ),
-                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(Icons.arrow_back_ios,color: MyColor.primary,),
+                                      2.responseWidth.widthSpace,
+                                      const Icon(Icons.arrow_forward_ios_sharp,color: MyColor.primary,),
+                                    ],
+                                  )
                                 ],
                               ),
                             ),
-                          )
+                          ),
+
                         ],
                       );
                     },
@@ -211,15 +223,14 @@ class HomeScreen extends GetView<HomeController> {
                                                   .listItemMediaEntity[4]
                                             });
                                       },
-                                      child: Expanded(
-                                        child: CacheImage(
-                                          height: 90,
-                                          url:
-                                              "${MyApi.baseUrl}/v1/file/store/${controller.listItemMediaEntity[4].imageId ?? ""}",
-                                        ),
+                                      child: CacheImage(
+                                        height: 90,
+                                        width: context.width/2.3,
+                                        url:
+                                            "${MyApi.baseUrl}/v1/file/store/${controller.listItemMediaEntity[4].imageId ?? ""}",
                                       ),
                                     ),
-                              15.responseWidth.widthSpace,
+                              5.responseWidth.widthSpace,
                               controller.baseStatusMediaBYId is BaseLoading
                                   ? const MyLoading()
                                   : MyContainerPublic(
@@ -228,15 +239,14 @@ class HomeScreen extends GetView<HomeController> {
                                         Get.toNamed(Routes.detailPage,
                                             arguments: {
                                               "mediaById": controller
-                                                  .listItemMediaEntity[3]
+                                                  .listItemMediaEntity[5]
                                             });
                                       },
-                                      child: Expanded(
-                                        child: CacheImage(
-                                          height: 90,
-                                          url:
-                                              "${MyApi.baseUrl}/v1/file/store/${controller.listItemMediaEntity[5].imageId ?? ""}",
-                                        ),
+                                      child: CacheImage(
+                                        height: 90,
+                                        width: context.width/2.3,
+                                        url:
+                                            "${MyApi.baseUrl}/v1/file/store/${controller.listItemMediaEntity[5].imageId ?? ""}",
                                       ),
                                     ),
                             ],
@@ -246,14 +256,19 @@ class HomeScreen extends GetView<HomeController> {
                       30.responseHeight.heightSpace,
                       controller.baseStatusListItemCategory is BaseLoading
                           ? const Center(child: MyLoading())
-                          : ListView.builder(
+                          :  ListView.builder(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               itemCount:
                                   controller.listItemCategoryEntity.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return Column(
+                                return controller
+                                    .listItemCategoryEntity[
+                                index].list==null||controller
+                                    .listItemCategoryEntity[
+                                index].list!.isEmpty?const SizedBox():Column(
                                   children: [
+                                    10.responseHeight.heightSpace,
                                     MyContainerPublic(
                                       onTap: () {
                                         Get.toNamed(Routes.categoryPage,
@@ -274,18 +289,18 @@ class HomeScreen extends GetView<HomeController> {
                                                 "",
                                             style: MyTextStyle.style(
                                                 context: context,
-                                                size: MyFontSize.small,
+                                                size: MyFontSize.xSmall,
                                                 weight: MyFontWeight.bold),
                                           ),
                                           2.responseWidth.widthSpace,
                                           const Icon(
                                             Icons.arrow_forward_ios_sharp,
-                                            size: 20,
+                                            size: 15,
                                           )
                                         ],
                                       ),
                                     ),
-                                    10.responseHeight.heightSpace,
+                                    20.responseHeight.heightSpace,
                                     MyContainerPublic(
                                       backgroundColor: MyColor.transparent,
                                       height: 130,
@@ -304,7 +319,7 @@ class HomeScreen extends GetView<HomeController> {
                                                           .listItemCategoryEntity[
                                                               index]
                                                           .list![pos]
-                                                    });
+                                                    },);
                                               },
                                               url:
                                                   "${MyApi.baseUrl}/v1/file/store/${controller.listItemCategoryEntity[index].list![pos].imageId!}",

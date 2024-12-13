@@ -53,7 +53,7 @@ class HomeDatasourceImpl implements IHomeDatasource {
   @override
   Future mediaByID({required String param}) {
     return _httpRequest.get(
-      path: "${MyApi.categoriesID}${param}",
+      path: "${MyApi.mediaID}$param",
     );
   }
 }

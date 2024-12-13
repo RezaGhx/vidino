@@ -1,3 +1,5 @@
+import 'package:competition/core/utils/base_status.dart';
+
 class MediaSuggestEntity {
   final String? id;
   final String? mediaType;
@@ -10,8 +12,9 @@ class MediaSuggestEntity {
   final int? likes;
   final int? disLikes;
   final int? score;
+  final BaseStatus? status;
 
-  MediaSuggestEntity({
+  MediaSuggestEntity( {
     this.id,
     this.mediaType,
     this.categoryId,
@@ -23,6 +26,7 @@ class MediaSuggestEntity {
     this.likes,
     this.disLikes,
     this.score,
+    this.status= const BaseInit(),
   });
 
   MediaSuggestEntity copyWith({
@@ -37,6 +41,7 @@ class MediaSuggestEntity {
     int? likes,
     int? disLikes,
     int? score,
+    BaseStatus? status
   }) =>
       MediaSuggestEntity(
         id: id ?? this.id,
@@ -50,6 +55,7 @@ class MediaSuggestEntity {
         likes: likes ?? this.likes,
         disLikes: disLikes ?? this.disLikes,
         score: score ?? this.score,
+        status: status ?? this.status,
       );
 
 }

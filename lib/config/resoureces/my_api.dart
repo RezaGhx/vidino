@@ -31,6 +31,6 @@ class MyApi {
   static String profileInfo = dotenv.env['PROFILEINFO']!;
   static String profileMe = dotenv.env['PROFILME']!;
   static String categories = dotenv.env['CATEGORIES']!;
-  static String categoriesID = dotenv.env['MEDIABYID']!;
+  static String mediaID = dotenv.env['MEDIABYID']!;
   static String medias = dotenv.env['MEDIAS']!;
 }

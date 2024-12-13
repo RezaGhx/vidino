@@ -5,6 +5,12 @@ class BaseResponse {
   ) {
     return bodyBuilder.call(response['content']);
   }
+  static T getDataWithOut<T>(
+      dynamic response,
+      T Function(Map<String, dynamic> json) bodyBuilder,
+      ) {
+    return bodyBuilder.call(response);
+  }
   static List<T> getDataListNoPage<T>(
       dynamic response,
       T Function(Map<String, dynamic> json) bodyBuilder,

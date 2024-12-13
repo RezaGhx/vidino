@@ -22,8 +22,4 @@ class Routes {
   ///VideoPlayer Page
   static const String videoPlayerPage = "/video_player_page";
 
-  ///Chat Page
-  static const String chatPage = "/chat_page";
-
-
 }
