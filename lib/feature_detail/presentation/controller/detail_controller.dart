@@ -133,7 +133,6 @@ class DetailController extends GetxController {
               update();
             } else {
               listItemMediaEntity = data;
-              print("object");
               update();
             }
           },

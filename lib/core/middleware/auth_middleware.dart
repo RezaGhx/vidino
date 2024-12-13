@@ -7,8 +7,6 @@ class AuthMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
     if (AuthStorage.isLogin()) {
-      print("object");
-      print(AuthStorage.tokenParams);
       return const RouteSettings(name: Routes.homePage);
     } else {
       return null;

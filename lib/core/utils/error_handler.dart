@@ -3,8 +3,6 @@ import 'my_exception.dart';
 
 class ErrorHandler {
   static void handleError(DioException e) {
-    print("error");
-    print(e.response);
     if (e.response?.data['Message'] == null &&
         e.response?.data['subErrors'] == null) {
       throw MyException(

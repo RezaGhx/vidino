@@ -44,32 +44,11 @@ class VideoPlayerShowController extends GetxController{
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    print(videoPlayerController1);
-    print(chewieController);
     videoPlayerController1.dispose();
     chewieController!.dispose();
-    print("FFFFFFFFFFFFF");
-    print(videoPlayerController1);
-    print(chewieController);
     update();
   }
 
-  // @override
-  // void onClose() {
-  //   SystemChrome.setPreferredOrientations([
-  //     DeviceOrientation.portraitUp,
-  //     DeviceOrientation.portraitDown,
-  //   ]);
-  //   print(videoPlayerController1.value.isInitialized);
-  //   print(chewieController);
-  //   if (videoPlayerController1.value.isInitialized) {
-  //     videoPlayerController1.dispose();
-  //   }
-  //   if (chewieController != null) {
-  //     chewieController!.dispose();
-  //   }
-  //   super.onClose();
-  // }
 
   @override
   void dispose() {
@@ -77,14 +56,9 @@ class VideoPlayerShowController extends GetxController{
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    print(videoPlayerController1);
-    print(chewieController);
     videoPlayerController1.dispose();
     chewieController!.dispose();
     videoUrl=null;
-    print("FFFFFFFFFFFFF");
-    print(videoPlayerController1);
-    print(chewieController);
     update();
     super.dispose();
   }
@@ -187,14 +161,9 @@ class VideoPlayerShowController extends GetxController{
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    print(videoPlayerController1);
-    print(chewieController);
     videoPlayerController1.dispose();
     chewieController!.dispose();
     videoUrl=null;
-    print("FFFFFFFFFFFFF");
-    print(videoPlayerController1);
-    print(chewieController);
     update();
 
   }

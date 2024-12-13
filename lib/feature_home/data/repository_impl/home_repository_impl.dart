@@ -111,7 +111,6 @@ class HomeRepositoryImpl implements IHomeRepository {
 }
 
 UserEntity _getData(dynamic response) {
-  print(response);
   return BaseResponse.getData(response, (json) => UserModel.fromJson(json));
 }
 

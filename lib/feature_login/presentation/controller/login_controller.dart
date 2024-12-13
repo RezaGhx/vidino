@@ -33,8 +33,6 @@ class LoginController extends GetxController {
             (data) {
               loginStatus = BaseComplete<String>(data);
               update();
-              print("object");
-              print(data);
               Get.toNamed(
                 Routes.verificationPage,
                 parameters: {
